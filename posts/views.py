@@ -1,24 +1,17 @@
-from django.http import HttpResponseRedirect,Http404
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.urls import reverse
-from .data import posts
-
+from .models import Post
 
 def home(request):
+    posts = Post.objects.all()
     return render(request,'posts/home.html',{"posts":posts})
 
-def post(request,id):
-    valid_id=False
-    for post in posts:
-        if id == post['id']:
-            post_dict=post
-            valid_id=True
-            break
-        
-    if valid_id:  
-        return render(request,"posts/post.html",{"post_dict":post_dict})
-    else:
-        raise Http404()
+def post(request, id):
+    post_obj = get_object_or_404(Post, id=id)
+    return render(request, "posts/post.html", {"post_dict": post_obj})
+    
 def redirect(request,id=None):
     if id:
       url=reverse('post',args=[id])
@@ -28,5 +21,5 @@ def redirect(request,id=None):
         return HttpResponseRedirect(url)
 
 def category_view(request, category):
-    filtered_posts = [post for post in posts if post["category"].lower() == category.lower()]
+    filtered_posts = Post.objects.filter(category__name__iexact=category)
     return render(request,'posts/home.html',{"posts":filtered_posts})

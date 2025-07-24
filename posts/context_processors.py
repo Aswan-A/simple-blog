@@ -1,5 +1,5 @@
-from .data import posts
+from .models import Post
 
 def categories(request):
-    categories = sorted({post["category"] for post in posts})
+    categories = sorted(set(Post.objects.values_list("category__name", flat=True)))
     return {"categories": categories}
