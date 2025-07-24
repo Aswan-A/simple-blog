@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('posts/',include('posts.urls')),
     path('',views.redirect),
-    path('<int:id>/',views.redirect)
+    path('<int:id>/',views.redirect),
 ]

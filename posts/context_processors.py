@@ -1,3 +1,5 @@
+from .data import posts
+
 def categories(request):
-    categories=["Python","JavaScript","Java"]
-    return {"categories":categories}
+    categories = sorted({post["category"] for post in posts})
+    return {"categories": categories}

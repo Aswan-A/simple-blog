@@ -1,24 +1,9 @@
 from django.http import HttpResponseRedirect,Http404
 from django.shortcuts import render
 from django.urls import reverse
+from .data import posts
 
-posts=[
-  {
-    "id": 1,
-    "title": "Introduction to Web Development",
-    "content": "Web development involves building and maintaining websites. It includes web design, web publishing, and database management."
-  },
-  {
-    "id": 2,
-    "title": "Let's explore Javascript",
-    "content": "Javascript is interpreted, high-level, general-purpose programming language. Widely used in the fields of web development."
-  },
-  {
-    "id": 3,
-    "title": "Django: The best web framework",
-    "content": "Django is used by almost every big tech company like Facebook, Google, YouTube, Instagram, etc."
-  }
-]
+
 def home(request):
     return render(request,'posts/home.html',{"posts":posts})
 
@@ -42,3 +27,6 @@ def redirect(request,id=None):
         url=reverse('home')
         return HttpResponseRedirect(url)
 
+def category_view(request, category):
+    filtered_posts = [post for post in posts if post["category"].lower() == category.lower()]
+    return render(request,'posts/home.html',{"posts":filtered_posts})
