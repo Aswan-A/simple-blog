@@ -1,0 +1,6 @@
+<div class="post-preview-card">
+          <a href="{% url 'post' post.id %}" class="post-link">
+            <h2 class="post-preview-title">{{ forloop.counter }} - {{ post.title|title }}</h2>
+          </a>
+          <p class="post-preview-content">{{ post.content|truncatewords:5 }}</p>
+</div>

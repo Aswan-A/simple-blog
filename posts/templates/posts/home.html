@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'posts/home.css' %}">
+{% endblock extra_css %}
+
+
+{% block body %}
+<div class="home-wrapper">
+  {% if posts %}
+    <div class="post-list">
+      {% for post in posts %}
+        {% include "posts/includes/postcards.html" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <h2 class="no-posts">No post available</h2>
+  {% endif %}
+</div>
+{% endblock body %}

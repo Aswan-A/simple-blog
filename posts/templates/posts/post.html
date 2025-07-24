@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post_dict.title }}{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'posts/post.css' %}">
+{% endblock extra_css %}
+
+{% block body %}
+<div class="post-wrapper">
+  <div class="post-card">
+    <h1 class="post-title">{{ post_dict.title }}</h1>
+    <p class="post-content">{{ post_dict.content }}</p>
+  </div>
+</div>
+{% endblock body %}
